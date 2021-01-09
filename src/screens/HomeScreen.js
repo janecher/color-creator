@@ -2,29 +2,57 @@ import React, {useState} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ColorChangerComponent from "../components/ColorChangerComponent";
 
+const COLOR_INCREMENT = 10;
+
 const HomeScreen = () => {
-  const [colorObject, setColorObject] = useState({red: 0, green: 0, blue: 0})
+  const [red, setRed] = useState(0);
+  const [green, setGreen] = useState(0);
+  const [blue, setBlue] = useState(0);
 
-  const increaseColor = (property) => {
-    if(colorObject[property] < 255) {
-      setColorObject(colorObject[property]++);
+  const increaseRed = () => {
+    if(red + COLOR_INCREMENT < 255) {
+      setRed(red + COLOR_INCREMENT);
     }
   }
 
-  const decreaseColor = () => {
-    if(colorObject[property] > 0) {
-      setColorObject(colorObject[property]--);
+  const increaseGreen = () => {
+    if(green + COLOR_INCREMENT < 255) {
+      setGreen(green + COLOR_INCREMENT);
     }
   }
 
-  let colorRgb = "rgb("+colorObject["red"] + ","+ colorObject["red"]+","+ colorObject["red"] + ")";
+  const increaseBlue = () => {
+    if(blue + COLOR_INCREMENT < 255) {
+      setBlue(blue + COLOR_INCREMENT);
+    }
+  }
+
+  const decreaseRed = () => {
+    if(red - COLOR_INCREMENT> 0) {
+      setRed(red - COLOR_INCREMENT);
+    }
+  }
+
+  const decreaseGreen = () => {
+    if(green - COLOR_INCREMENT> 0) {
+      setGreen(green - COLOR_INCREMENT);
+    }
+  }
+
+  const decreaseBlue = () => {
+    if(blue - COLOR_INCREMENT> 0) {
+      setBlue(blue - COLOR_INCREMENT);
+    }
+  }
+
+  let colorRgb = `rgb(${red},${green},${blue})`;
 
   return (
     <View>
-      <ColorChangerComponent color="Red" increase={increaseColor("red")} decrease={increaseColor("red")}/>
-      <ColorChangerComponent color="Green"  increase = {increaseColor("green")} decrease={increaseColor("green")}/>
-      <ColorChangerComponent color="Blue"  increase = {increaseColor("blue")} decrease={increaseColor("blue")}/>
-      <Text>Color rgb</Text>
+      <ColorChangerComponent color="Red" onIncrease={increaseRed} onDecrease={decreaseRed}/>
+      <ColorChangerComponent color="Green"  onIncrease = {increaseGreen} onDecrease={decreaseGreen}/>
+      <ColorChangerComponent color="Blue"  onIncrease = {increaseBlue} onDecrease={decreaseBlue}/>
+      <Text>Color RGB: {colorRgb})</Text>
       <View style={{height: 100, width: 100, backgroundColor: colorRgb}}></View>
     </View>
   );
