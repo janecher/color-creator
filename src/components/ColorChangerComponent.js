@@ -1,33 +1,27 @@
 import React from "react";
-import { Button, View, Text, StyleSheet, DatePickerIOSBase} from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet, DatePickerIOSBase} from "react-native";
 
-const ColorChangerComponent = ({color, onIncrease, onDecrease}) => {
+const ColorChangerComponent = ({color, background, onIncrease, onDecrease}) => {
   return (
-    <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-        <View style={styles.buttonContainer}>
-            <Button title="+" onPress={() => onIncrease()}/>
-        </View>
-        <Text>{color}</Text> 
-        <View style={styles.buttonContainer}>
-            <Button title="-" onPress={() => onDecrease()}/>
-        </View>
+    <View style={{flexDirection:'row', flexWrap:'wrap', margin:10}}>
+        <TouchableOpacity style={{backgroundColor: background, padding: 10, width: 60, borderRadius: 5}} onPress={() => onDecrease()}>
+            <Text style={styles.textStyleButton}>-</Text>
+        </TouchableOpacity>
+        <Text style={{color: background, fontSize: 30, fontWeight: "bold", padding: 10}}>{color}</Text>
+        <TouchableOpacity style={{backgroundColor: background, padding: 10, width: 60, borderRadius: 5}} onPress={() => onIncrease()}>
+            <Text style={styles.textStyleButton}>+</Text>
+        </TouchableOpacity> 
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        backgroundColor: '#2E9298',
-        borderRadius: 10,
-        padding: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-          width: 0,
-          height: 3
-        },
-        shadowRadius: 10,
-        shadowOpacity: 0.25
-      }
+    textStyleButton: {
+        color: "white",
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: "center"
+    }
 });
 
 export default ColorChangerComponent;

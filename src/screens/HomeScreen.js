@@ -1,65 +1,42 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet } from "react-native";
-import ColorChangerComponent from "../components/ColorChangerComponent";
+import React from "react";
+import { View, Text, StyleSheet, Button, Touchable } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { withOrientation } from "react-navigation";
 
-const COLOR_INCREMENT = 10;
-
-const HomeScreen = () => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
-
-  const increaseRed = () => {
-    if(red + COLOR_INCREMENT < 255) {
-      setRed(red + COLOR_INCREMENT);
-    }
-  }
-
-  const increaseGreen = () => {
-    if(green + COLOR_INCREMENT < 255) {
-      setGreen(green + COLOR_INCREMENT);
-    }
-  }
-
-  const increaseBlue = () => {
-    if(blue + COLOR_INCREMENT < 255) {
-      setBlue(blue + COLOR_INCREMENT);
-    }
-  }
-
-  const decreaseRed = () => {
-    if(red - COLOR_INCREMENT> 0) {
-      setRed(red - COLOR_INCREMENT);
-    }
-  }
-
-  const decreaseGreen = () => {
-    if(green - COLOR_INCREMENT> 0) {
-      setGreen(green - COLOR_INCREMENT);
-    }
-  }
-
-  const decreaseBlue = () => {
-    if(blue - COLOR_INCREMENT> 0) {
-      setBlue(blue - COLOR_INCREMENT);
-    }
-  }
-
-  let colorRgb = `rgb(${red},${green},${blue})`;
-
+const HomeScreen = ({navigation}) => {
   return (
-    <View>
-      <ColorChangerComponent color="Red" onIncrease={increaseRed} onDecrease={decreaseRed}/>
-      <ColorChangerComponent color="Green"  onIncrease = {increaseGreen} onDecrease={decreaseGreen}/>
-      <ColorChangerComponent color="Blue"  onIncrease = {increaseBlue} onDecrease={decreaseBlue}/>
-      <Text>Color RGB: {colorRgb})</Text>
-      <View style={{height: 100, width: 100, backgroundColor: colorRgb}}></View>
+    <View style={styles.container}>
+      <Text style={styles.textStyle}>Build a color</Text>
+      <TouchableOpacity style={styles.buttonStyle} onPress={() => navigation.navigate("Color")}>
+        <Text style={styles.textStyleStart}>Start</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-
+  container: {
+    alignItems: 'center'
+  },
+  textStyle: {
+    color: "#397365",
+    fontSize: 40,
+    fontWeight: "bold",
+    textAlign: "center",
+    margin: 40
+  },
+  textStyleStart: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  buttonStyle: {
+    backgroundColor: '#3bd1ad',
+    borderRadius: 5,
+    padding: 10,
+    width: 200
+  }
 });
 
 export default HomeScreen;
