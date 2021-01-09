@@ -5,43 +5,29 @@ import ColorChangerComponent from "../components/ColorChangerComponent";
 const COLOR_INCREMENT = 10;
 
 const ColorScreen = () => {
+
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
-
-  const increaseRed = () => {
-    if(red + COLOR_INCREMENT < 255) {
-      setRed(red + COLOR_INCREMENT);
+  
+  const setColor = (color, amount) => {
+    if(color === "red") {
+        if(red + amount < 255 || red - amount > 0) {
+            setRed(red + amount);
+            return;
+        }
     }
-  }
-
-  const increaseGreen = () => {
-    if(green + COLOR_INCREMENT < 255) {
-      setGreen(green + COLOR_INCREMENT);
+    if(color === "green") {
+        if(green + amount < 255 || green - amount > 0) {
+            setGreen(green + amount);
+            return;
+        }
     }
-  }
-
-  const increaseBlue = () => {
-    if(blue + COLOR_INCREMENT < 255) {
-      setBlue(blue + COLOR_INCREMENT);
-    }
-  }
-
-  const decreaseRed = () => {
-    if(red - COLOR_INCREMENT> 0) {
-      setRed(red - COLOR_INCREMENT);
-    }
-  }
-
-  const decreaseGreen = () => {
-    if(green - COLOR_INCREMENT> 0) {
-      setGreen(green - COLOR_INCREMENT);
-    }
-  }
-
-  const decreaseBlue = () => {
-    if(blue - COLOR_INCREMENT> 0) {
-      setBlue(blue - COLOR_INCREMENT);
+    if(color === "blue") {
+        if(blue + amount < 255 || blue - amount > 0) {
+            setBlue(blue + amount);
+            return;
+        }
     }
   }
 
@@ -49,9 +35,9 @@ const ColorScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ColorChangerComponent color="Red" background='red' onIncrease={increaseRed} onDecrease={decreaseRed}/>
-      <ColorChangerComponent color="Green" background='green' onIncrease = {increaseGreen} onDecrease={decreaseGreen}/>
-      <ColorChangerComponent color="Blue" background='blue' onIncrease = {increaseBlue} onDecrease={decreaseBlue}/>
+      <ColorChangerComponent color="Red" background='red' onIncrease={()=>setColor("red", COLOR_INCREMENT)} onDecrease={()=>setColor("red", -1*COLOR_INCREMENT)}/>
+      <ColorChangerComponent color="Green" background='green' onIncrease={()=>setColor("green", COLOR_INCREMENT)} onDecrease={()=>setColor("green", -1*COLOR_INCREMENT)}/>
+      <ColorChangerComponent color="Blue" background='blue' onIncrease={()=>setColor("blue", COLOR_INCREMENT)} onDecrease={()=>setColor("blue", -1*COLOR_INCREMENT)}/>
       <Text style={styles.textStyle}>Color RGB: {colorRgb}</Text>
       <View style={{height: 200, width: 200, borderRadius: 10, backgroundColor: colorRgb}}></View>
     </View>
